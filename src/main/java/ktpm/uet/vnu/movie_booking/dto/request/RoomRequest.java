@@ -1,4 +1,4 @@
-package ktpm.uet.vnu.moviebooking.dto.request;
+package ktpm.uet.vnu.movie_booking.dto.request;
 
 import lombok.Data;
 
