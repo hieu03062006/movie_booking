@@ -1,4 +1,4 @@
-package ktpm.uet.vnu.moviebooking.repository;
+package ktpm.uet.vnu.movie_booking.repository;
 
 import ktpm.uet.vnu.movie_booking.entity.Booking;
 import ktpm.uet.vnu.movie_booking.entity.BookingStatus;
