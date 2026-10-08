@@ -24,10 +24,10 @@ public class Showtime {
     private Room room;
 
     @Column(name = "start_time", nullable = false)
-    private LocalDateTime start_time;
+    private LocalDateTime startTime;
 
     @Column(name = "end_time", nullable = false)
-    private LocalDateTime end_time;
+    private LocalDateTime endTime;
 
     @Column(name = "price", nullable = false)
     private BigDecimal price;
