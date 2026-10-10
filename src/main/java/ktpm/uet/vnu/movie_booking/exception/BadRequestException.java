@@ -1,4 +1,4 @@
-package ktpm.uet.vn.movue_booking.exception;
+package ktpm.uet.vnu.movie_booking.exception;
 
 public class BadRequestException extends RuntimeException {
 
