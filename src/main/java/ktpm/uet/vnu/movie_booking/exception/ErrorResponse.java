@@ -1,11 +1,11 @@
-package ktpm.uet.vn.movie_booking.exception;
+package ktpm.uet.vnu.movie_booking.exception;
 
 import java.time.LocalDateTime;
 
 public class ErrorResponse {
 
     private final int status;
-    priavte final String message;
+    private final String message;
     private final LocalDateTime timestamp;
 
     public ErrorResponse(int status, String message, LocalDateTime timestamp) {

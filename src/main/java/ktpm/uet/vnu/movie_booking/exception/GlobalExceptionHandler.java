@@ -1,14 +1,14 @@
-package ktpm.uet.vn.movie_booking.exception;
+package ktpm.uet.vnu.movie_booking.exception;
 
 import java.time.LocalDateTime;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.responseEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
-public class GlobalExceptionhandler {
+public class GlobalExceptionHandler {
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleNotFound(ResourceNotFoundException exception) {
@@ -21,9 +21,9 @@ public class GlobalExceptionhandler {
     }
 
     @ExceptionHandler(BadRequestException.class)
-    public ResponseEntity<ErrorResponse> handlerBadRequest(badRequestException exception) {
+    public ResponseEntity<ErrorResponse> handlerBadRequest(BadRequestException exception) {
         ErrorResponse body = new ErrorResponse(
-            HttpStatus.BAD_REQUEST.va;ue(),
+            HttpStatus.BAD_REQUEST.value(),
             exception.getMessage(),
             LocalDateTime.now()
         );
