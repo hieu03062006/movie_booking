@@ -9,6 +9,8 @@ import java.math.BigDecimal;
 @Table(name = "showtimes")
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor @AllArgsConstructor
 public class Showtime {
 
     @Id
