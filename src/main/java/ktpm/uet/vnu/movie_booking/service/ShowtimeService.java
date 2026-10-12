@@ -7,6 +7,7 @@ import ktpm.uet.vnu.movie_booking.entity.Room;
 import ktpm.uet.vnu.movie_booking.entity.Showtime;
 import ktpm.uet.vnu.movie_booking.exception.BadRequestException;
 import ktpm.uet.vnu.movie_booking.exception.ResourceNotFoundException;
+import ktpm.uet.vnu.movie_booking.repository.BookingRepository;
 import ktpm.uet.vnu.movie_booking.repository.MovieRepository;
 import ktpm.uet.vnu.movie_booking.repository.RoomRepository;
 import ktpm.uet.vnu.movie_booking.repository.ShowtimeRepository;
@@ -23,6 +24,7 @@ public class ShowtimeService {
     private final ShowtimeRepository showtimeRepository;
     private final MovieRepository movieRepository;
     private final RoomRepository roomRepository;
+    private final BookingRepository bookingRepository;
 
     @Transactional
     public ShowtimeResponse create(ShowtimeRequest request) {
@@ -59,6 +61,9 @@ public class ShowtimeService {
 
     @Transactional
     public void delete(Long id) {
+        if (bookingRepository.existsByShowtimeId(id)) {
+            throw new BadRequestException("Suất chiếu đã có người đặt vé, không thể xóa");
+        }
         Showtime showtime = findShowtime(id);
         showtimeRepository.delete(showtime);
     }

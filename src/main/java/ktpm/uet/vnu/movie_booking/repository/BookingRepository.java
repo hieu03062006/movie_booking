@@ -20,4 +20,6 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
         """)
     Long sumSeatsByShowtime(@Param("showtimeId") Long showtimeId,
                             @Param("excludedStatus") BookingStatus excludedStatus);
+
+    boolean existsByShowtimeId(Long showtimeId);
 }
