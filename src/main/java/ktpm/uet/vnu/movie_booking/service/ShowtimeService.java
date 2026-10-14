@@ -30,7 +30,7 @@ public class ShowtimeService {
     public ShowtimeResponse create(ShowtimeRequest request) {
         Movie movie = findMovie(request.getMovieId());
         Room room = findRoom(request.getRoomId());
-        validateTime(request, null);
+        validateTime(request);
 
         Showtime showtime = Showtime.builder()
                 .movie(movie)
@@ -43,21 +43,21 @@ public class ShowtimeService {
         return ShowtimeResponse.from(showtimeRepository.save(showtime));
     }
 
-    @Transactional
-    public ShowtimeResponse update(Long id, ShowtimeRequest request) {
-        Showtime showtime = findShowtime(id);
-        Movie movie = findMovie(request.getMovieId());
-        Room room = findRoom(request.getRoomId());
-        validateTime(request, id);
-
-        showtime.setMovie(movie);
-        showtime.setRoom(room);
-        showtime.setStartTime(request.getStartTime());
-        showtime.setEndTime(request.getEndTime());
-        showtime.setPrice(request.getPrice());
-
-        return ShowtimeResponse.from(showtimeRepository.save(showtime));
-    }
+//    @Transactional
+//    public ShowtimeResponse update(Long id, ShowtimeRequest request) {
+//        Showtime showtime = findShowtime(id);
+//        Movie movie = findMovie(request.getMovieId());
+//        Room room = findRoom(request.getRoomId());
+//        validateTime(request, id);
+//
+//        showtime.setMovie(movie);
+//        showtime.setRoom(room);
+//        showtime.setStartTime(request.getStartTime());
+//        showtime.setEndTime(request.getEndTime());
+//        showtime.setPrice(request.getPrice());
+//
+//        return ShowtimeResponse.from(showtimeRepository.save(showtime));
+//    }
 
     @Transactional
     public void delete(Long id) {
@@ -80,25 +80,20 @@ public class ShowtimeService {
                 .toList();
     }
 
-    @Transactional(readOnly = true)
-    public List<ShowtimeResponse> getByMovie(Long movieId) {
-        findMovie(movieId);
-        return showtimeRepository.findByMovieId(movieId).stream()
-                .map(ShowtimeResponse::from)
-                .toList();
-    }
+//    @Transactional(readOnly = true)
+//    public List<ShowtimeResponse> getByMovie(Long movieId) {
+//        findMovie(movieId);
+//        return showtimeRepository.findByMovieId(movieId).stream()
+//                .map(ShowtimeResponse::from)
+//                .toList();
+//    }
 
 
-    private void validateTime(ShowtimeRequest request, Long excludeId) {
+    private void validateTime(ShowtimeRequest request) {
         if (!request.getEndTime().isAfter(request.getStartTime())) {
             throw new BadRequestException("Giờ kết thúc phải sau giờ bắt đầu");
         }
-        boolean trung = showtimeRepository.existsOverlap(
-                request.getRoomId(),
-                request.getStartTime(),
-                request.getEndTime(),
-                excludeId);
-        if (trung) {
+        if (showtimeRepository.existsOverlap(request.getRoomId(), request.getStartTime(), request.getEndTime())) {
             throw new BadRequestException("Phòng đã có suất chiếu trong khoảng thời gian này");
         }
     }
