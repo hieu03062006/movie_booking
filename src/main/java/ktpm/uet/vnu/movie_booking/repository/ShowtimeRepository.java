@@ -17,10 +17,8 @@ public interface ShowtimeRepository extends JpaRepository<Showtime, Long> {
         WHERE s.room.id = :roomId
           AND s.startTime < :endTime
           AND s.endTime > :startTime
-          AND (:excludeId IS NULL OR s.id <> :excludeId)
         """)
     boolean existsOverlap(@Param("roomId") Long roomId,
                           @Param("startTime") LocalDateTime startTime,
-                          @Param("endTime") LocalDateTime endTime,
-                          @Param("excludeId") Long excludeId);
+                          @Param("endTime") LocalDateTime endTime);
 }
