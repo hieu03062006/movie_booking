@@ -41,6 +41,8 @@ public class SecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             )
             .authorizeHttpRequests(auth -> auth
+                    //Mở cửa cho đường dẫn báo lỗi của hệ thống
+                    .requestMatchers("/error").permitAll()
                 .requestMatchers("/api/auth/register", "/api/auth/login")
                     .permitAll()
 
